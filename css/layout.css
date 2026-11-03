@@ -1,0 +1,108 @@
+/* App shell: top bar, sidebar, main area */
+
+.topbar {
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:15px clamp(14px,3vw,34px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo {
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#3458db,#16b8a6);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:24px;
+}
+
+.brand h1 {
+  font-size:17px;
+  margin:0;
+  line-height:1.2;
+}
+
+.brand p {
+  font-size:12px;
+  color:var(--muted);
+  margin:4px 0 0;
+}
+
+.top-actions {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.layout {
+  display:grid;
+  grid-template-columns:230px minmax(0,1fr);
+  max-width:1600px;
+  margin:auto;
+}
+
+.sidebar {
+  padding:22px 14px;
+  border-right:1px solid var(--line);
+  min-height:calc(100vh - 77px);
+}
+
+.navbtn {
+  display:flex;
+  gap:11px;
+  align-items:center;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#506079;
+  text-align:left;
+  padding:12px 13px;
+  border-radius:12px;
+  margin-bottom:5px;
+}
+
+.navbtn.active, .navbtn:hover {
+  background:var(--blue2);
+  color:var(--blue);
+  font-weight:700;
+}
+
+.navicon {
+  width:22px;
+  text-align:center;
+}
+
+.side-note {
+  margin:24px 6px 0;
+  padding:13px;
+  background:#e9faf6;
+  border-radius:14px;
+  color:#23675f;
+  font-size:12px;
+}
+
+.main {
+  padding:clamp(16px,3vw,32px);
+  min-width:0;
+}
+
+.footer {
+  padding:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}

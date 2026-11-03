@@ -1,0 +1,51 @@
+/* Template library, projects and history lists */
+
+.templategrid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.template {
+  border:1px solid var(--line);
+  padding:15px;
+  border-radius:15px;
+  background:white;
+}
+
+.template h4 {
+  margin:7px 0;
+}
+
+.template p {
+  font-size:12px;
+  color:var(--muted);
+  min-height:36px;
+}
+
+.template .meta {
+  font-size:11px;
+  color:#53647d;
+  margin-bottom:10px;
+}
+
+.project {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+  padding:13px 0;
+}
+
+.project:last-child {
+  border-bottom:0;
+}
+
+.project strong {
+  display:block;
+}
+
+.project small {
+  color:var(--muted);
+}

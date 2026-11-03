@@ -1,0 +1,97 @@
+/* Responsive breakpoints */
+
+@media (max-width:1050px) {
+  .cards, .templategrid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .stats {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .layout {
+    grid-template-columns:190px minmax(0,1fr);
+  }
+}
+
+@media (max-width:720px) {
+  .topbar {
+    position:static;
+    align-items:flex-start;
+  }
+  .brand h1 {
+    font-size:14px;
+  }
+  .brand p {
+    display:none;
+  }
+  .logo {
+    width:39px;
+    height:39px;
+  }
+  .top-actions .toplabel {
+    display:none;
+  }
+  .layout {
+    display:block;
+  }
+  .sidebar {
+    display:none;
+    border:0;
+    min-height:0;
+    padding:8px 14px;
+    background:#fff;
+  }
+  .sidebar.open {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:4px;
+  }
+  .side-note {
+    display:none;
+  }
+  .mobilemenu {
+    display:inline-flex;
+  }
+  .main {
+    padding:14px;
+  }
+  .cards, .templategrid, .formgrid {
+    grid-template-columns:1fr;
+  }
+  .field.full {
+    grid-column:auto;
+  }
+  .stats {
+    gap:8px;
+  }
+  .stat {
+    padding:12px;
+  }
+  .stat strong {
+    font-size:21px;
+  }
+  .hero {
+    border-radius:18px;
+  }
+  .hero:after {
+    right:3%;
+    top:7%;
+    font-size:58px;
+  }
+  .sectionhead {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .promptbox {
+    min-height:360px;
+  }
+  .project {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .project .actions {
+    width:100%;
+  }
+  .project .btn {
+    flex:1;
+  }
+}

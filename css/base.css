@@ -1,0 +1,46 @@
+/* Design tokens, reset and base element styles */
+
+:root {
+  --bg:#f4f7fb;
+  --panel:#fff;
+  --ink:#18233a;
+  --muted:#64748b;
+  --line:#dfe6f0;
+  --blue:#3458db;
+  --blue2:#e9efff;
+  --teal:#0f9d8a;
+  --orange:#f59e0b;
+  --shadow:0 12px 30px rgba(30,50,90,.08);
+  --radius:18px;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+
+button, input, select, textarea {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.app {
+  min-height:100vh;
+}
+
+.page {
+  display:none;
+}
+
+.page.active {
+  display:block;
+}

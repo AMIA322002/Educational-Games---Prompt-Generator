@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Educational Games - Prompt Generator </title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/library.css">
+<link rel="stylesheet" href="css/utilities.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo" aria-hidden="true">✦</div><div><h1>Educational Games - Prompt Generator</h1><p>Prompt Studio · One Generator. All Levels. All Subjects.</p></div></div>
+  <div class="top-actions"><button class="btn mobilemenu" id="mobileMenu" aria-label="Buka menu">☰</button><button class="btn small" id="langToggle">🇮🇩 ID / EN</button><button class="btn small" id="headerNew">＋ <span class="toplabel" data-i18n="newPrompt">Prompt Baru</span></button></div>
+</header>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <button class="navbtn active" data-page="dashboard"><span class="navicon">⌂</span><span data-i18n="dashboard">Dashboard</span></button>
+  <button class="navbtn" data-page="builder"><span class="navicon">✎</span><span data-i18n="create">Buat Prompt</span></button>
+  <button class="navbtn" data-page="templates"><span class="navicon">▦</span><span data-i18n="templates">Library Templat</span></button>
+  <button class="navbtn" data-page="projects"><span class="navicon">▣</span><span data-i18n="projects">Proyek Saya</span></button>
+  <button class="navbtn" data-page="history"><span class="navicon">◷</span><span data-i18n="history">Riwayat Prompt</span></button>
+  <button class="navbtn" data-page="settings"><span class="navicon">⚙</span><span data-i18n="settings">Pengaturan</span></button>
+  <button class="navbtn" data-page="help"><span class="navicon">?</span><span data-i18n="help">Panduan</span></button>
+  <div class="side-note">💡 <strong data-i18n="tipTitle">Tips</strong><br><span data-i18n="tipBody">Isi materi dengan jelas. Periksa kembali jawaban sebelum digunakan murid.</span></div>
+</aside>
+<main class="main">
+<section class="page active" id="page-dashboard">
+  <div class="hero"><div class="eyebrow">EDUCATION × GAME DESIGN × AI</div><h2 data-i18n="heroTitle">Ubah ide pembelajaran menjadi prompt gim edukasi.</h2><p data-i18n="heroBody">Rancang prompt yang siap disalin ke AI coding untuk membuat gim web interaktif—dari PAUD hingga pembelajaran dewasa, semua mata pelajaran dan banyak mekanik gim.</p><div class="actions"><button class="btn light" id="heroStart">✦ <span data-i18n="startBuilding">Mulai Membuat</span></button><button class="btn ghost" style="color:white;border-color:#ffffff99" id="heroTemplates">▦ <span data-i18n="browseTemplates">Lihat Templat</span></button></div></div>
+  <div class="stats"><div class="stat"><strong id="statGames">60+</strong><span data-i18n="gameTypes">Jenis mekanik gim</span></div><div class="stat"><strong>7</strong><span data-i18n="levels">Pilihan jenjang/kelompok</span></div><div class="stat"><strong>3</strong><span data-i18n="languages">Pilihan bahasa output</span></div><div class="stat"><strong id="statProjects">0</strong><span data-i18n="savedProjects">Proyek tersimpan</span></div></div>
+  <div class="sectionhead"><div><h3 data-i18n="quickStart">Mulai cepat</h3><p data-i18n="quickStartBody">Pilih titik awal, lalu sesuaikan dengan kebutuhan belajar.</p></div></div>
+  <div class="cards">
+    <div class="card"><div class="emoji">🧩</div><h4 data-i18n="cardQuiz">Kuis & asesmen</h4><p data-i18n="cardQuizBody">Multiple choice, multiple response, true/false, dan kuis bertimer.</p><button class="btn small" data-template="quiz">Gunakan →</button></div>
+    <div class="card"><div class="emoji">🔗</div><h4 data-i18n="cardMatch">Matching & memory</h4><p data-i18n="cardMatchBody">Pasangkan kata, gambar, definisi, konsep, atau kartu memori.</p><button class="btn small" data-template="matching">Gunakan →</button></div>
+    <div class="card"><div class="emoji">🗺️</div><h4 data-i18n="cardAdventure">Adventure & escape room</h4><p data-i18n="cardAdventureBody">Misi, petualangan bertahap, teka-teki, dan pengambilan keputusan.</p><button class="btn small" data-template="adventure">Gunakan →</button></div>
+  </div>
+  <div class="sectionhead"><div><h3 data-i18n="workflowTitle">Alur kerja</h3><p data-i18n="workflowBody">Aplikasi ini membuat prompt; AI coding eksternal membuat kode gimnya.</p></div></div>
+  <div class="panel"><div class="inline" style="justify-content:space-between"><span>① <b data-i18n="configure">Atur pembelajaran</b></span><span>→</span><span>② <b data-i18n="generate">Generate prompt</b></span><span>→</span><span>③ <b data-i18n="copyUse">Salin ke AI coding</b></span><span>→</span><span>④ <b data-i18n="testExport">Uji & ekspor gim</b></span></div><p class="sub" style="margin:14px 0 0" data-i18n="workflowNote">Generator inti dapat bekerja tanpa API. Pembuatan kode langsung di aplikasi memerlukan integrasi AI dan backend.</p></div>
+</section>
+
+<section class="page" id="page-builder">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="builderTitle">Buat prompt gim</h2><p data-i18n="builderSubtitle">Lengkapi bagian yang Anda perlukan. Kolom opsional boleh dikosongkan.</p></div><span class="tag">PROMPT STUDIO</span></div>
+  <div class="steps"><span class="step current" data-step="1">1. Learning</span><span class="step" data-step="2">2. Content</span><span class="step" data-step="3">3. Game</span><span class="step" data-step="4">4. Rules</span><span class="step" data-step="5">5. Design</span><span class="step" data-step="6">6. Technical</span><span class="step" data-step="7">7. Generate</span></div>
+  <form id="builderForm">
+  <div class="panel formstep" data-formstep="1"><h3>① <span data-i18n="learningProfile">Profil pembelajar</span></h3><p class="sub" data-i18n="learningProfileSub">Sesuaikan pengalaman dengan usia, kemampuan, dan tujuan belajar.</p><div class="formgrid">
+    <div class="field"><label for="level" data-i18n="educationLevel">Jenjang pendidikan *</label><select id="level" required><option>PAUD / Early Childhood</option><option>SD / Primary School</option><option>SMP / Junior Secondary</option><option selected>SMA/SMK / Senior Secondary</option><option>University / Higher Education</option><option>Adult / Professional Learning</option><option>Custom Education Level</option></select></div>
+    <div class="field"><label for="grade" data-i18n="gradeAge">Kelas / usia</label><input id="grade" placeholder="Contoh: Kelas XII, usia 17–18 tahun"></div>
+    <div class="field"><label for="ability" data-i18n="ability">Kemampuan awal</label><select id="ability"><option>Beginner</option><option>Elementary</option><option selected>Intermediate</option><option>Advanced</option><option>Mixed Ability</option><option>Not specified</option></select></div>
+    <div class="field"><label for="difficulty" data-i18n="difficulty">Tingkat kesulitan</label><select id="difficulty"><option>Beginner</option><option>Elementary</option><option selected>Intermediate</option><option>Advanced</option><option>Expert</option><option>Adaptive</option></select></div>
+    <div class="field full"><label for="objectives" data-i18n="objectives">Tujuan pembelajaran</label><textarea id="objectives" placeholder="Apa yang diharapkan dapat dipahami atau dilakukan murid?"></textarea></div>
+    <div class="field full"><label for="prior" data-i18n="priorKnowledge">Pengetahuan awal / kebutuhan khusus</label><textarea id="prior" placeholder="Contoh: murid sudah mengenal simple present; kemampuan membaca beragam."></textarea></div>
+  </div></div>
+  <div class="panel formstep hidden" data-formstep="2"><h3>② <span data-i18n="learningContent">Materi pembelajaran</span></h3><p class="sub" data-i18n="contentSub">Masukkan materi sendiri agar prompt tidak mengarang isi pelajaran.</p><div class="formgrid">
+    <div class="field"><label for="subject" data-i18n="subject">Mata pelajaran *</label><select id="subject"><option>English / Bahasa Inggris</option><option>Bahasa Indonesia</option><option>Mathematics / Matematika</option><option>Science / IPA</option><option>Biology / Biologi</option><option>Physics / Fisika</option><option>Chemistry / Kimia</option><option>Social Studies / IPS</option><option>History / Sejarah</option><option>Geography / Geografi</option><option>Economics / Ekonomi</option><option>Civics / Pendidikan Pancasila</option><option>Religious Education / Pendidikan Agama</option><option>Character Education / Pendidikan Karakter</option><option>Computer Science / Informatika</option><option>Programming / Pemrograman</option><option>Digital Literacy / Literasi Digital</option><option>AI Literacy / Literasi AI</option><option>Arts and Music / Seni dan Musik</option><option>Physical Education / PJOK</option><option>Health Education / Pendidikan Kesehatan</option><option>Vocational Education / Pendidikan Vokasi</option><option>Professional Skills / Keterampilan Profesional</option><option>Custom Subject</option></select></div>
+    <div class="field"><label for="customSubject" data-i18n="customSubject">Mata pelajaran khusus (jika perlu)</label><input id="customSubject" placeholder="Nama mata pelajaran lain"></div>
+    <div class="field full"><label for="topic" data-i18n="topic">Topik / materi *</label><input id="topic" required placeholder="Contoh: Narrative Text, fractions, ecosystems"></div>
+    <div class="field full"><label for="curriculum" data-i18n="curriculum">CP / standar kurikulum / kriteria</label><textarea id="curriculum" placeholder="Tempelkan standar atau tujuan resmi jika tersedia. Jangan isi dengan perkiraan."></textarea></div>
+    <div class="field full"><label for="material" data-i18n="material">Materi atau sumber teks</label><textarea class="tall" id="material" placeholder="Tempelkan materi, bacaan, ringkasan, rumus, atau sumber belajar."></textarea></div>
+    <div class="field full"><label for="qa" data-i18n="teacherQA">Soal dan kunci jawaban dari guru (opsional)</label><textarea id="qa" placeholder="Tuliskan soal, pilihan, kunci jawaban, dan pembahasan jika sudah tersedia."></textarea></div>
+    <div class="field"><label for="count" data-i18n="questionCount">Jumlah soal / tugas</label><input id="count" type="number" min="1" max="500" value="10"></div>
+    <div class="field"><label for="sourcePolicy" data-i18n="sourcePolicy">Kebijakan konten</label><select id="sourcePolicy"><option value="source">Utamakan materi yang saya berikan</option><option value="supplement">Gunakan materi saya dan tambahkan konten yang relevan</option><option value="ai">Buat konten baru, tandai untuk ditinjau guru</option></select></div>
+  </div></div>
+  <div class="panel formstep hidden" data-formstep="3"><h3>③ <span data-i18n="gameDesign">Desain permainan</span></h3><p class="sub" data-i18n="gameSub">Pilih mekanik yang cocok dengan tujuan belajar.</p><div class="formgrid">
+    <div class="field"><label for="gameType" data-i18n="gameType">Jenis gim *</label><select id="gameType"></select></div>
+    <div class="field"><label for="gameMode" data-i18n="gameMode">Mode permainan</label><select id="gameMode"><option>Single game</option><option>Multi-stage / multiple levels</option><option>Adaptive progression</option></select></div>
+    <div class="field"><label for="theme" data-i18n="theme">Tema / cerita gim</label><input id="theme" placeholder="Contoh: space exploration, school adventure"></div>
+    <div class="field"><label for="players" data-i18n="players">Mode pemain</label><select id="players"><option>Individual</option><option>Team / cooperative</option><option>Competitive / tournament</option><option>Multiplayer (requires networking)</option></select></div>
+    <div class="field"><label for="levelsCount" data-i18n="levelCount">Jumlah level</label><input id="levelsCount" type="number" min="1" max="100" value="3"></div>
+    <div class="field"><label for="duration" data-i18n="duration">Durasi permainan (menit)</label><input id="duration" type="number" min="0" max="600" value="10"></div>
+    <div class="field"><label for="attempts" data-i18n="attempts">Kesempatan / nyawa</label><input id="attempts" type="number" min="1" max="99" value="3"></div>
+    <div class="field"><label for="hints" data-i18n="hints">Bantuan / hints</label><select id="hints"><option>Enabled without penalty</option><option>Enabled with optional penalty</option><option>Disabled</option></select></div>
+  </div><div class="notice" style="margin-top:15px" id="gameInfo">Pilih jenis gim untuk melihat catatan implementasi.</div></div>
+  <div class="panel formstep hidden" data-formstep="4"><h3>④ <span data-i18n="rules">Aturan dan penilaian</span></h3><p class="sub" data-i18n="rulesSub">Atur bagaimana pemain memperoleh skor, bantuan, dan feedback.</p><div class="formgrid">
+    <div class="field"><label for="points" data-i18n="points">Poin dasar untuk jawaban benar</label><input id="points" type="number" min="0" max="100000" value="10"></div>
+    <div class="field"><label for="penalty" data-i18n="penalty">Penalti jawaban salah</label><select id="penalty"><option>None</option><option>Subtract points</option><option>Lose an attempt</option></select></div>
+    <div class="field"><label for="partial" data-i18n="partial">Kredit parsial</label><select id="partial"><option>Enable when appropriate</option><option>Disabled</option></select></div>
+    <div class="field"><label for="retry" data-i18n="retry">Percobaan ulang</label><select id="retry"><option>Allow retry</option><option>One attempt only</option><option>Allow retry after feedback</option></select></div>
+    <div class="field"><label for="feedbackTiming" data-i18n="feedbackTiming">Waktu feedback</label><select id="feedbackTiming"><option>Immediately after each response</option><option>After each level</option><option>At the end of the game</option></select></div>
+    <div class="field"><label for="completion" data-i18n="completion">Syarat selesai</label><select id="completion"><option>Complete all tasks</option><option>Reach target score</option><option>Complete all levels</option><option>Finish before time runs out</option></select></div>
+    <div class="field full"><label for="scoringExtra" data-i18n="scoringExtra">Aturan skor tambahan</label><textarea id="scoringExtra" placeholder="Contoh: bonus maksimal 5 poin untuk waktu tersisa; jangan hitung poin ganda."></textarea></div>
+    <div class="field full"><label for="feedbackStyle" data-i18n="feedbackStyle">Gaya feedback dan pembahasan</label><textarea id="feedbackStyle" placeholder="Contoh: ramah, singkat, jelaskan alasan jawaban benar, tidak mempermalukan murid."></textarea></div>
+  </div></div>
+  <div class="panel formstep hidden" data-formstep="5"><h3>⑤ <span data-i18n="visualLanguage">Bahasa dan desain visual</span></h3><p class="sub" data-i18n="visualSub">Bahasa antarmuka dan bahasa materi dapat disesuaikan.</p><div class="formgrid">
+    <div class="field"><label for="outputLang" data-i18n="outputLang">Bahasa output *</label><select id="outputLang"><option value="Bilingual (English and Bahasa Indonesia)">Bilingual (English + Bahasa Indonesia)</option><option value="English only">English only</option><option value="Bahasa Indonesia only">Bahasa Indonesia only</option></select></div>
+    <div class="field"><label for="languageOrder" data-i18n="languageOrder">Urutan bahasa</label><select id="languageOrder"><option>English first, Indonesian second</option><option>Bahasa Indonesia first, English second</option><option>Let the user switch languages</option></select></div>
+    <div class="field"><label for="palette" data-i18n="palette">Tema warna</label><select id="palette"><option>Bright and cheerful</option><option>Calm and minimal</option><option>Nature and science</option><option>Dark high-contrast</option><option>Teacher custom palette</option></select></div>
+    <div class="field"><label for="visualStyle" data-i18n="visualStyle">Gaya visual</label><select id="visualStyle"><option>Modern colorful educational UI</option><option>Cartoon and playful</option><option>Minimal professional</option><option>Pixel art / arcade</option><option>Storybook illustration</option><option>Simulation dashboard</option></select></div>
+    <div class="field"><label for="textSize" data-i18n="textSize">Ukuran teks</label><select id="textSize"><option>Large and highly readable</option><option>Standard responsive</option><option>Compact for information-dense content</option></select></div>
+    <div class="field"><label for="animation" data-i18n="animation">Animasi</label><select id="animation"><option>Subtle</option><option>Playful and lively</option><option>Minimal / reduced motion</option></select></div>
+    <div class="field"><label for="audio" data-i18n="audio">Audio</label><select id="audio"><option>No audio required</option><option>Optional sound effects</option><option>Audio playback for learning content</option><option>Speech recognition (browser/API limitations must be explained)</option></select></div>
+    <div class="field"><label for="accessibility" data-i18n="accessibility">Aksesibilitas</label><select id="accessibility"><option>Standard accessibility best practices</option><option>Extra-large touch controls for young learners/IFP</option><option>Keyboard-first navigation</option><option>Reduced motion and high contrast</option></select></div>
+  </div></div>
+  <div class="panel formstep hidden" data-formstep="6"><h3>⑥ <span data-i18n="technical">Persyaratan teknis</span></h3><p class="sub" data-i18n="technicalSub">Pilih bentuk kode yang akan diminta dari AI coding.</p><div class="formgrid">
+    <div class="field"><label for="outputFormat" data-i18n="outputFormat">Format output</label><select id="outputFormat"><option>Single self-contained HTML file</option><option>Multi-file web project with complete file tree</option></select></div>
+    <div class="field"><label for="offline" data-i18n="offline">Kebutuhan offline</label><select id="offline"><option>Offline-first; avoid external dependencies where feasible</option><option>Internet connection allowed for selected assets</option><option>Online app with backend integration</option></select></div>
+    <div class="field"><label for="devices" data-i18n="devices">Perangkat sasaran</label><select id="devices"><option>Android, desktop, tablet, and IFP</option><option>Desktop and laptop</option><option>Mobile-first</option><option>Interactive Flat Panel / large touch screen</option></select></div>
+    <div class="field"><label for="assetPolicy" data-i18n="assetPolicy">Kebijakan aset eksternal</label><select id="assetPolicy"><option>No external assets; use CSS/SVG/emoji where suitable</option><option>External assets allowed with clear fallbacks</option><option>Use teacher-provided assets only</option></select></div>
+    <div class="field"><label for="promptDepth" data-i18n="promptDepth">Kedalaman prompt</label><select id="promptDepth"><option value="Quick Prompt">Quick Prompt</option><option value="Standard Prompt" selected>Standard Prompt</option><option value="Advanced Developer Prompt">Advanced Developer Prompt</option></select></div>
+    <div class="field"><label for="documentation" data-i18n="documentation">Dokumentasi kode</label><select id="documentation"><option>Clear comments for important logic</option><option>Detailed developer documentation</option><option>Minimal comments</option></select></div>
+    <div class="field full"><label for="extraRequirements" data-i18n="extraRequirements">Instruksi tambahan</label><textarea id="extraRequirements" placeholder="Fitur khusus, aturan sekolah, kebutuhan penyimpanan, atau batasan lainnya."></textarea></div>
+  </div></div>
+  <div class="panel formstep hidden" data-formstep="7"><h3>⑦ <span data-i18n="reviewGenerate">Tinjau dan buat prompt</span></h3><p class="sub" data-i18n="reviewSub">Periksa ringkasan sebelum prompt lengkap dibuat.</p><div id="summaryBox" class="notice">Ringkasan akan muncul di sini.</div><div class="actions" style="margin-top:15px"><button type="button" class="btn primary" id="generateBtn">✦ Generate Prompt</button><button type="button" class="btn" id="saveConfigBtn">▣ <span data-i18n="saveProject">Simpan Proyek</span></button></div></div>
+  <div class="actions" style="justify-content:space-between;margin:15px 0"><button type="button" class="btn" id="prevStep">← <span data-i18n="previous">Sebelumnya</span></button><div class="actions"><button type="button" class="btn" id="resetForm">↺ <span data-i18n="reset">Reset</span></button><button type="button" class="btn primary" id="nextStep"><span data-i18n="next">Berikutnya</span> →</button></div></div>
+  </form>
+  <div class="panel hidden" id="promptPanel"><div class="sectionhead" style="margin-top:0"><div><h3 data-i18n="promptPreview">Preview prompt</h3><p class="sub" data-i18n="promptPreviewSub">Prompt dapat diedit sebelum disalin atau diunduh.</p></div><span class="tag" id="promptDepthTag">STANDARD</span></div><textarea id="promptOutput" class="promptbox" aria-label="Generated prompt"></textarea><div class="prompttoolbar"><button class="btn primary" id="copyPrompt">▣ <span data-i18n="copyPrompt">Salin Prompt</span></button><button class="btn" id="downloadTxt">↓ Download TXT</button><button class="btn" id="downloadMd">↓ Download Markdown</button><button class="btn" id="savePrompt">♥ <span data-i18n="savePrompt">Simpan ke Proyek</span></button><button class="btn" id="checkPrompt">✓ <span data-i18n="checklist">Periksa Kelengkapan</span></button></div><div id="qaReport"></div><div class="notice">ℹ️ <span data-i18n="promptNotice">Prompt ini belum menghasilkan gim secara otomatis. Salin ke AI coding tool. Tinjau kode, kunci jawaban, keamanan, dan materi sebelum dipakai di kelas.</span></div></div>
+</section>
+
+<section class="page" id="page-templates">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="templateTitle">Library templat gim</h2><p data-i18n="templateSubtitle">Pilih templat awal. Semua pilihan dapat disesuaikan.</p></div></div>
+  <input class="searchbox" id="templateSearch" placeholder="Cari jenis gim / Search game types..." aria-label="Cari templat">
+  <div class="templategrid" id="templateGrid" style="margin-top:14px"></div>
+</section>
+<section class="page" id="page-projects">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="projectsTitle">Proyek saya</h2><p data-i18n="projectsSubtitle">Konfigurasi dan prompt tersimpan di browser ini.</p></div><div class="actions"><button class="btn small" id="exportProjects">↓ Ekspor JSON</button><button class="btn small" id="importProjectsBtn">↑ Impor JSON</button><input type="file" id="importProjectsFile" accept=".json,application/json" class="hidden"></div></div>
+  <div class="panel" id="projectsList"></div>
+</section>
+<section class="page" id="page-history">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="historyTitle">Riwayat prompt</h2><p data-i18n="historySubtitle">Prompt yang pernah dibuat selama tersimpan di browser.</p></div><button class="btn danger small" id="clearHistory">Hapus Riwayat</button></div>
+  <div class="panel" id="historyList"></div>
+</section>
+<section class="page" id="page-settings">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="settingsTitle">Pengaturan</h2><p data-i18n="settingsSubtitle">Atur preferensi aplikasi Prompt Studio.</p></div></div>
+  <div class="panel"><h3>🌐 Language / Bahasa</h3><p class="sub">Mengubah bahasa label antarmuka. Bahasa prompt diatur pada form.</p><div class="pillrow"><button class="pill active" data-lang="id">🇮🇩 Bahasa Indonesia</button><button class="pill" data-lang="en">🇬🇧 English</button></div></div>
+  <div class="panel"><h3>💾 Data & privasi</h3><p class="sub">Data proyek disimpan secara lokal di browser jika localStorage tersedia. Tidak ada data yang dikirim ke server oleh aplikasi ini.</p><div class="actions"><button class="btn" id="downloadBackup">Download backup JSON</button><button class="btn danger" id="clearLocalData">Hapus semua data lokal</button></div></div>
+  <div class="panel"><h3>🤖 Integrasi AI</h3><p class="sub">Versi ini menyusun prompt secara lokal. Integrasi AI langsung membutuhkan layanan AI, backend yang aman, dan pengelolaan API key. Jangan menaruh API key di HTML publik.</p><div class="notice">AI-generated content must be reviewed by a teacher. A generated prompt or checklist does not guarantee factual accuracy or working code.</div></div>
+</section>
+<section class="page" id="page-help">
+  <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="helpTitle">Panduan penggunaan</h2><p data-i18n="helpSubtitle">Petunjuk sederhana untuk pengguna baru.</p></div></div>
+  <div class="panel"><h3>1. Isi profil dan materi</h3><p>Pilih jenjang, kemampuan, mata pelajaran, topik, dan tempelkan materi jika ada. Kolom bertanda * wajib diisi.</p><h3>2. Pilih mekanik gim</h3><p>Gunakan katalog untuk melihat fungsi, tingkat kompleksitas, penilaian, dan batasan tiap mekanik. Multiplayer, speech recognition, dan simulasi kompleks mungkin memerlukan layanan atau kode tambahan.</p><h3>3. Generate dan periksa</h3><p>Buka langkah 7, periksa ringkasan, lalu klik Generate Prompt. Anda dapat mengedit prompt hasilnya sebelum menyalin atau mengunduh.</p><h3>4. Buat gim dengan AI coding</h3><p>Salin prompt ke layanan AI coding. Minta kode lengkap, simpan sebagai HTML jika satu file, buka di browser, lalu uji semua tombol, jawaban, skor, dan tampilan di perangkat sasaran.</p><h3>5. Simpan dan ekspor</h3><p>Simpan proyek untuk menyimpan konfigurasi dan prompt di browser ini. Ekspor JSON untuk membuat cadangan atau memindahkannya ke browser lain.</p><div class="notice">Penting: jangan masukkan data pribadi murid. Periksa ketepatan materi, sumber, kunci jawaban, aksesibilitas, dan keamanan sebelum digunakan.</div></div>
+</section>
+<div class="footer">Universal Educational Games Generator — Prompt Studio · Local-first prototype · v1.0</div>
+</main></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
