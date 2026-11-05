@@ -1,8 +1,8 @@
-import { $ } from "../utils/dom.js"
-import { toast } from "../ui/toast.js"
-import { supabase } from "../state/supabase.js"
+import { $ } from "../utils/dom.js";
+import { toast } from "../ui/toast.js";
+import { supabase } from "../state/supabase.js";
 
-let mode = "login"
+let mode = "login"; // or "signup"
 
 export async function getRole(userId) {
   const { data } = await supabase.from("profiles").select("role").eq("id", userId).single();
@@ -16,7 +16,20 @@ function setMode(m) {
 }
 
 async function submit(e) {
-    e.preventDefault();
-    const email = $("#authEmail").value.trim();
-    const password = 
+  e.preventDefault();
+  const email = $("#authEmail").value.trim();
+  const password = $("#authPassword").value;
+  const fn = mode === "login" ? "signInWithPassword" : "signUp";
+  const { error } = await supabase.auth[fn]({ email, password });
+  if (error) return toast(error.message);
+  if (mode === "signup") toast("Akun dibuat. Cek email untuk konfirmasi (jika diaktifkan).");
 }
+
+/** Calls onUser(user|null) now and on every login/logout. */
+export function initAuth(onUser) {
+  $("#authForm").addEventListener("submit", submit);
+  $("#authSwitch").onclick = () => setMode(mode === "login" ? "signup" : "login");
+  $("#logoutBtn").onclick = () => supabase.auth.signOut();
+  supabase.auth.onAuthStateChange((_e, session) => onUser(session?.user ?? null));
+  setMode("login");
+} 
