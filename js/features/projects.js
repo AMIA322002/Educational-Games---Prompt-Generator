@@ -2,84 +2,71 @@ import { $, escapeHtml } from "../utils/dom.js";
 import { toast } from "../ui/toast.js";
 import { slug } from "../utils/text.js";
 import { downloadText } from "../utils/files.js";
-import { db, persist } from "../state/db.js";
+import { listProjects, addProject, deleteProject as removeProject } from "../state/store.js";
 import { session } from "../state/session.js";
 import { showPage } from "./navigation.js";
 import { collect, applyConfig, setStep } from "./form.js";
 
-export function projectRecord(config, prompt, title) {
-  return {
-    id: Date.now(),
-    title: title || config.topic + " — " + config.gameType,
-    created: new Date().toISOString(),
-    config,
-    prompt: prompt || "",
-  };
-}
+let cache = [];
 
 export function updateStats() {
-  $("#statProjects").textContent = (db.projects || []).length;
+  $("#statProjects").textContent = cache.length;
 }
 
-/** Save the current form (optionally with the generated prompt) as a project. */
-export function saveProject(withPrompt) {
+async function create(config, prompt) {
+  try {
+    await addProject({ title: config.topic + " — " + config.gameType, config, prompt: prompt || "" });
+    await renderProjects();
+    return true;
+  } catch (e) {
+    toast("Gagal menyimpan: " + e.message);
+    return false;
+  }
+}
+
+export async function saveProject(withPrompt) {
   const c = collect();
-  if (!c.topic) {
-    toast("Isi topik terlebih dahulu.");
-    setStep(2);
-    return;
-  }
+  if (!c.topic) { toast("Isi topik terlebih dahulu."); setStep(2); return; }
   const prompt = withPrompt ? $("#promptOutput").value || session.lastPrompt : "";
-  db.projects = db.projects || [];
-  db.projects.unshift(projectRecord(c, prompt));
-  persist();
-  updateStats();
-  renderProjects();
-  toast("Proyek disimpan di browser ini.");
+  if (await create(c, prompt)) toast("Proyek disimpan.");
 }
 
-/** Save the prompt currently shown in the output box as a project. */
-export function savePromptAsProject() {
+export async function savePromptAsProject() {
   const prompt = $("#promptOutput").value;
-  if (!prompt.trim()) {
-    toast("Buat prompt terlebih dahulu.");
-    return;
-  }
-  const config = session.lastConfig || collect();
-  db.projects = db.projects || [];
-  db.projects.unshift(projectRecord(config, prompt));
-  persist();
-  renderProjects();
-  toast("Prompt disimpan ke Proyek Saya.");
+  if (!prompt.trim()) { toast("Buat prompt terlebih dahulu."); return; }
+  if (await create(session.lastConfig || collect(), prompt)) toast("Prompt disimpan ke Proyek Saya.");
 }
 
 function projectRow(p) {
   return [
-    '<div class="project">',
-    "<div>",
+    '<div class="project"><div>',
     `<strong>${escapeHtml(p.title)}</strong>`,
-    `<small>${new Date(p.created).toLocaleString()} · ${escapeHtml(p.config?.level || "")}</small>`,
+    `<small>${new Date(p.created_at).toLocaleString()} · ${escapeHtml(p.config?.level || "")}</small>`,
     `<div class="hint">${escapeHtml(p.config?.gameType || "")} · ${escapeHtml(p.config?.outputLang || "")}</div>`,
-    "</div>",
-    '<div class="actions">',
+    '</div><div class="actions">',
     `<button class="btn small" data-load="${p.id}">Buka</button>`,
     `<button class="btn small" data-exportproject="${p.id}">Unduh</button>`,
     `<button class="btn small danger" data-deleteproject="${p.id}">Hapus</button>`,
-    "</div>",
-    "</div>",
+    "</div></div>",
   ].join("");
 }
 
-export function renderProjects() {
-  const list = db.projects || [];
-  $("#projectsList").innerHTML = list.length
-    ? list.map(projectRow).join("")
+export async function renderProjects() {
+  try { cache = await listProjects(); } catch (e) { toast("Gagal memuat proyek: " + e.message); cache = []; }
+  $("#projectsList").innerHTML = cache.length
+    ? cache.map(projectRow).join("")
     : '<div class="empty">Belum ada proyek tersimpan. Buat prompt lalu klik Simpan Proyek.</div>';
   updateStats();
 }
 
+export function clearProjectsView() {
+  cache = [];
+  $("#projectsList").innerHTML = "";
+  updateStats();
+}
+
 function loadProject(id) {
-  const p = db.projects.find((x) => x.id === id);
+  const p = cache.find((x) => x.id === id);
   if (!p) return;
   applyConfig(p.config);
   showPage("builder");
@@ -93,26 +80,23 @@ function loadProject(id) {
   toast("Konfigurasi proyek dimuat.");
 }
 
-function deleteProject(id) {
-  db.projects = db.projects.filter((p) => p.id !== id);
-  persist();
-  renderProjects();
-  toast("Proyek dihapus.");
+async function deleteProject(id) {
+  try { await removeProject(id); await renderProjects(); toast("Proyek dihapus."); }
+  catch (e) { toast("Gagal menghapus: " + e.message); }
 }
 
 function exportProject(id) {
-  const p = db.projects.find((x) => x.id === id);
+  const p = cache.find((x) => x.id === id);
   if (p) downloadText(JSON.stringify(p, null, 2), (slug(p.title) || "project") + ".json", "application/json");
 }
 
 export function initProjects() {
-  // One delegated listener instead of re-binding buttons after every render.
   $("#projectsList").addEventListener("click", (e) => {
     const load = e.target.closest("[data-load]");
-    if (load) return loadProject(Number(load.dataset.load));
+    if (load) return loadProject(load.dataset.load);
     const del = e.target.closest("[data-deleteproject]");
-    if (del) return deleteProject(Number(del.dataset.deleteproject));
+    if (del) return deleteProject(del.dataset.deleteproject);
     const exp = e.target.closest("[data-exportproject]");
-    if (exp) exportProject(Number(exp.dataset.exportproject));
+    if (exp) exportProject(exp.dataset.exportproject);
   });
 }
