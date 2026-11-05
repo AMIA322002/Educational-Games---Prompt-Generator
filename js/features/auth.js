@@ -25,11 +25,17 @@ async function submit(e) {
   if (mode === "signup") toast("Akun dibuat. Cek email untuk konfirmasi (jika diaktifkan).");
 }
 
-/** Calls onUser(user|null) now and on every login/logout. */
 export function initAuth(onUser) {
   $("#authForm").addEventListener("submit", submit);
   $("#authSwitch").onclick = () => setMode(mode === "login" ? "signup" : "login");
   $("#logoutBtn").onclick = () => supabase.auth.signOut();
-  supabase.auth.onAuthStateChange((_e, session) => onUser(session?.user ?? null));
+
+  let lastId;
+  supabase.auth.onAuthStateChange((_e, session) => {
+    const user = session?.user ?? null;
+    if ((user?.id ?? null) === lastId) return;
+    lastId = user?.id ?? null;
+    setTimeout(() => onUser(user), 0);
+  });
   setMode("login");
-} 
+}
