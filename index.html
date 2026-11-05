@@ -14,10 +14,24 @@
 <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-<div class="app">
+
+<!-- LOGIN VIEW (sibling of .app, visible until a session exists) -->
+<div id="authView" style="min-height:100vh;display:grid;place-items:center;padding:20px">
+  <form id="authForm" class="panel" style="width:min(100%,380px)">
+    <h3>Educational Games - Prompt Generator</h3>
+    <p class="sub">Masuk untuk mengakses proyek Anda.</p>
+    <div class="field" style="margin-bottom:12px"><label for="authEmail">Email</label><input id="authEmail" type="email" required autocomplete="email"></div>
+    <div class="field" style="margin-bottom:16px"><label for="authPassword">Password</label><input id="authPassword" type="password" required minlength="8" autocomplete="current-password"></div>
+    <button type="submit" class="btn primary" id="authSubmit" style="width:100%">Masuk</button>
+    <p style="text-align:center;margin:14px 0 0"><a href="#" id="authSwitch" onclick="return false">Belum punya akun? Daftar</a></p>
+  </form>
+</div>
+
+<!-- APP (hidden until login) -->
+<div class="app hidden">
 <header class="topbar">
   <div class="brand"><div class="logo" aria-hidden="true">✦</div><div><h1>Educational Games - Prompt Generator</h1><p>Prompt Studio · One Generator. All Levels. All Subjects.</p></div></div>
-  <div class="top-actions"><button class="btn mobilemenu" id="mobileMenu" aria-label="Buka menu">☰</button><button class="btn small" id="langToggle">🇮🇩 ID / EN</button><button class="btn small" id="headerNew">＋ <span class="toplabel" data-i18n="newPrompt">Prompt Baru</span></button></div>
+  <div class="top-actions"><button class="btn mobilemenu" id="mobileMenu" aria-label="Buka menu">☰</button><button class="btn small" id="langToggle">🇮🇩 ID / EN</button><button class="btn small" id="headerNew">＋ <span class="toplabel" data-i18n="newPrompt">Prompt Baru</span></button><button class="btn small" id="logoutBtn">Keluar</button></div>
 </header>
 <div class="layout">
 <aside class="sidebar" id="sidebar">
@@ -127,26 +141,16 @@
 <section class="page" id="page-settings">
   <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="settingsTitle">Pengaturan</h2><p data-i18n="settingsSubtitle">Atur preferensi aplikasi Prompt Studio.</p></div></div>
   <div class="panel"><h3>🌐 Language / Bahasa</h3><p class="sub">Mengubah bahasa label antarmuka. Bahasa prompt diatur pada form.</p><div class="pillrow"><button class="pill active" data-lang="id">🇮🇩 Bahasa Indonesia</button><button class="pill" data-lang="en">🇬🇧 English</button></div></div>
-  <div class="panel"><h3>💾 Data & privasi</h3><p class="sub">Data proyek disimpan secara lokal di browser jika localStorage tersedia. Tidak ada data yang dikirim ke server oleh aplikasi ini.</p><div class="actions"><button class="btn" id="downloadBackup">Download backup JSON</button><button class="btn danger" id="clearLocalData">Hapus semua data lokal</button></div></div>
+  <div class="panel"><h3>💾 Data & privasi</h3><p class="sub">Proyek dan riwayat prompt disimpan di akun Anda pada server (Supabase) dan hanya dapat diakses oleh akun Anda. Preferensi bahasa disimpan di browser ini.</p><div class="actions"><button class="btn" id="downloadBackup">Download backup JSON</button><button class="btn danger" id="clearLocalData">Hapus semua data lokal</button></div></div>
   <div class="panel"><h3>🤖 Integrasi AI</h3><p class="sub">Versi ini menyusun prompt secara lokal. Integrasi AI langsung membutuhkan layanan AI, backend yang aman, dan pengelolaan API key. Jangan menaruh API key di HTML publik.</p><div class="notice">AI-generated content must be reviewed by a teacher. A generated prompt or checklist does not guarantee factual accuracy or working code.</div></div>
 </section>
 <section class="page" id="page-help">
   <div class="sectionhead" style="margin-top:0"><div><h2 style="margin:0" data-i18n="helpTitle">Panduan penggunaan</h2><p data-i18n="helpSubtitle">Petunjuk sederhana untuk pengguna baru.</p></div></div>
-  <div class="panel"><h3>1. Isi profil dan materi</h3><p>Pilih jenjang, kemampuan, mata pelajaran, topik, dan tempelkan materi jika ada. Kolom bertanda * wajib diisi.</p><h3>2. Pilih mekanik gim</h3><p>Gunakan katalog untuk melihat fungsi, tingkat kompleksitas, penilaian, dan batasan tiap mekanik. Multiplayer, speech recognition, dan simulasi kompleks mungkin memerlukan layanan atau kode tambahan.</p><h3>3. Generate dan periksa</h3><p>Buka langkah 7, periksa ringkasan, lalu klik Generate Prompt. Anda dapat mengedit prompt hasilnya sebelum menyalin atau mengunduh.</p><h3>4. Buat gim dengan AI coding</h3><p>Salin prompt ke layanan AI coding. Minta kode lengkap, simpan sebagai HTML jika satu file, buka di browser, lalu uji semua tombol, jawaban, skor, dan tampilan di perangkat sasaran.</p><h3>5. Simpan dan ekspor</h3><p>Simpan proyek untuk menyimpan konfigurasi dan prompt di browser ini. Ekspor JSON untuk membuat cadangan atau memindahkannya ke browser lain.</p><div class="notice">Penting: jangan masukkan data pribadi murid. Periksa ketepatan materi, sumber, kunci jawaban, aksesibilitas, dan keamanan sebelum digunakan.</div></div>
+  <div class="panel"><h3>1. Isi profil dan materi</h3><p>Pilih jenjang, kemampuan, mata pelajaran, topik, dan tempelkan materi jika ada. Kolom bertanda * wajib diisi.</p><h3>2. Pilih mekanik gim</h3><p>Gunakan katalog untuk melihat fungsi, tingkat kompleksitas, penilaian, dan batasan tiap mekanik. Multiplayer, speech recognition, dan simulasi kompleks mungkin memerlukan layanan atau kode tambahan.</p><h3>3. Generate dan periksa</h3><p>Buka langkah 7, periksa ringkasan, lalu klik Generate Prompt. Anda dapat mengedit prompt hasilnya sebelum menyalin atau mengunduh.</p><h3>4. Buat gim dengan AI coding</h3><p>Salin prompt ke layanan AI coding. Minta kode lengkap, simpan sebagai HTML jika satu file, buka di browser, lalu uji semua tombol, jawaban, skor, dan tampilan di perangkat sasaran.</p><h3>5. Simpan dan ekspor</h3><p>Simpan proyek untuk menyimpan konfigurasi dan prompt di akun Anda. Ekspor JSON untuk membuat cadangan.</p><div class="notice">Penting: jangan masukkan data pribadi murid. Periksa ketepatan materi, sumber, kunci jawaban, aksesibilitas, dan keamanan sebelum digunakan.</div></div>
 </section>
-<div class="footer">Universal Educational Games Generator — Prompt Studio · Local-first prototype · v1.0</div>
-<div id="authView" class="hidden" style="min-height:100vh;display:grid;place-items:center;padding:20px">
-  <form id="authForm" class="panel" style="width:min(100%,380px)">
-    <h3>Educational Games - Prompt Generator</h3>
-    <p class="sub">Masuk untuk mengakses proyek Anda.</p>
-    <div class="field" style="margin-bottom:12px"><label for="authEmail">Email</label><input id="authEmail" type="email" required autocomplete="email"></div>
-    <div class="field" style="margin-bottom:16px"><label for="authPassword">Password</label><input id="authPassword" type="password" required minlength="8" autocomplete="current-password"></div>
-    <button class="btn primary" id="authSubmit" style="width:100%">Masuk</button>
-    <button class="btn small" id="logoutBtn">Keluar</button>
-    <p style="text-align:center;margin:14px 0 0"><a href="#" id="authSwitch" onclick="return false">Belum punya akun? Daftar</a></p>
-  </form>
-</div>
+<div class="footer">Universal Educational Games Generator — Prompt Studio · v1.0</div>
 </main></div></div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script type="module" src="js/main.js"></script>
 </body>
