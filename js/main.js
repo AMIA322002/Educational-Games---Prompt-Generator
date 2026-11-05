@@ -11,7 +11,6 @@ import { initHistory, renderHistory, clearHistoryView } from "./features/history
 import { initSettings } from "./features/settings.js";
 import { initAuth, getRole } from "./features/auth.js";
 import { initAdmin, renderAllowlist, setAdminVisible } from "./features/admin.js";
-import { showPage } from "./features/navigation.js";
 
 function init() {
   onPageShow("projects", renderProjects);
@@ -28,18 +27,19 @@ function init() {
   initHistory();
   initSettings();
   initAdmin();
-  
+
   fillGameTypes();
   updateGameInfo();
   setLang(db.settings?.lang || DEFAULT_LANG);
   renderTemplates();
   setStep(1);
 
-  initAuth((user) => {
+  initAuth(async (user) => {
     $("#authView").classList.toggle("hidden", !!user);
     $(".app").classList.toggle("hidden", !user);
     if (user) {
-      setAdminVisible((await getRole(user.id)) === "admin");
+      try { setAdminVisible((await getRole(user.id)) === "admin"); }
+      catch (e) { console.error("admin check failed", e); }
       renderProjects();
       renderHistory();
     } else {
