@@ -32,4 +32,4 @@ export function initAuth(onUser) {
   $("#logoutBtn").onclick = () => supabase.auth.signOut();
   supabase.auth.onAuthStateChange((_e, session) => onUser(session?.user ?? null));
   setMode("login");
-}
+} 
